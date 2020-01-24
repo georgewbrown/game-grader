@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/game-grader/static/css/main.742fd12e.chunk.css",
+    "main.js": "/game-grader/static/js/main.93f8bedf.chunk.js",
+    "main.js.map": "/game-grader/static/js/main.93f8bedf.chunk.js.map",
+    "runtime-main.js": "/game-grader/static/js/runtime-main.f3654d5b.js",
+    "runtime-main.js.map": "/game-grader/static/js/runtime-main.f3654d5b.js.map",
+    "static/js/2.2406ea03.chunk.js": "/game-grader/static/js/2.2406ea03.chunk.js",
+    "static/js/2.2406ea03.chunk.js.map": "/game-grader/static/js/2.2406ea03.chunk.js.map",
+    "index.html": "/game-grader/index.html",
+    "precache-manifest.500baf038005a2446ec83771bc73d73c.js": "/game-grader/precache-manifest.500baf038005a2446ec83771bc73d73c.js",
+    "service-worker.js": "/game-grader/service-worker.js",
+    "static/css/main.742fd12e.chunk.css.map": "/game-grader/static/css/main.742fd12e.chunk.css.map",
+    "static/js/2.2406ea03.chunk.js.LICENSE": "/game-grader/static/js/2.2406ea03.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f3654d5b.js",
+    "static/js/2.2406ea03.chunk.js",
+    "static/css/main.742fd12e.chunk.css",
+    "static/js/main.93f8bedf.chunk.js"
+  ]
+}
