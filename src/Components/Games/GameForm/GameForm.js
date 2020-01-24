@@ -4,36 +4,38 @@ import { TextField, Select } from 'final-form-material-ui';
 import { Paper, Grid, Button, CssBaseline, MenuItem } from '@material-ui/core';
 import axios from 'axios';
 
-const firebaseURL = `https://game-grade.firebaseio.com/games.json`;
 
-const onSubmit = async values => {
-  await axios
-    .post(firebaseURL, values)
-    .then(res => res.data)
-    .catch(error => console.error(error));
-};
+const GameForm = props => {
+  const firebaseURL = `https://game-grade.firebaseio.com/games.json`;
 
-const validate = values => {
-  const errors = {};
-  if (!values.title) {
-    errors.title = 'Required';
-  }
-  if (!values.esrbRating) {
-    errors.esrbRating = 'Required';
-  }
-  if (!values.playerRating) {
-    errors.playerRating = 'Required';
-  }
-  if (!values.imageURL) {
-    errors.imageURL = 'Required';
-  }
-  if (!values.description) {
-    errors.description = 'Required';
-  }
-  return errors;
-};
+  const onSubmit = async values => {
+    await axios
+      .post(firebaseURL, values)
+      .then(res => res.data)
+      .catch(error => console.error(error));
+      props.toggle(true);
+  };
+  const validate = values => {
+    const errors = {};
+    if (!values.title) {
+      errors.title = 'Required';
+    }
+    if (!values.esrbRating) {
+      errors.esrbRating = 'Required';
+    }
+    if (!values.playerRating) {
+      errors.playerRating = 'Required';
+    }
+    if (!values.imageURL) {
+      errors.imageURL = 'Required';
+    }
+    if (!values.description) {
+      errors.description = 'Required';
+    }
+    return errors;
+  };
 
-const GameForm = () => (
+return (
   <div style={{ padding: 16, margin: 'auto', maxWidth: 1600 }}>
     <CssBaseline />
     <Form
@@ -114,6 +116,7 @@ const GameForm = () => (
                   color="primary"
                   type="submit"
                   disabled={submitting}
+                  onClick={props.click}
                 >
                   {' '}
                   Submit
@@ -126,5 +129,6 @@ const GameForm = () => (
     />
   </div>
 );
+}
 
 export default GameForm;

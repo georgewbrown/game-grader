@@ -1,39 +1,42 @@
 import React, { useState, Fragment, useCallback } from 'react';
 import './Games.css';
 import axios from 'axios';
-import MaterialAppBar from '../UI/Material-AppBar/Material-AppBar';
 import GameFeed from './GameFeed/GameFeed';
 import GameForm from './GameForm/GameForm';
-import Filter from '../UI/Filter/Filter';
+import MaterialAppBar from '../UI/Material-AppBar/Material-AppBar';
+import MaterialFilter from '../UI/Material-Filter/MaterialFilter';
 
 const Games = () => {
   const [gamesList, setGamesList] = useState([]);
-  const [showGameForm, setshowGameForm] = useState(false);
   const [showGameFeed, setshowGameFeed] = useState(true);
+  const [ isLoading, setIsLoading ] = useState(false);
   const [buttonText, setButtonText] = useState('Add A Game');
-  let domContent = null;
 
   const getFilterHandler = useCallback(filterObject => {
+    setIsLoading(true);
     setGamesList(filterObject);
+    setIsLoading(false);
   }, []);
 
-  const deleteGameHandler = gameID => {
-    axios
-      .delete(`https://game-grade.firebaseio.com/games/${gameID}.json`)
-      .then(res => {
-        console.log(res);
-      });
+  const deleteGameHandler = async gameID => {
+    setIsLoading(true);
+    await axios.delete(`https://game-grade.firebaseio.com/games/${gameID}.json`)
+      .then(() => {
+        setIsLoading(false);
+        setGamesList(prevGamesList => prevGamesList.filter(game => game.id !== gameID));
+      })
+      .catch(error => {
+        console.error(error);
+      })
+    ;
   };
 
   const toggleGameFeed = () => {
+    showGameFeed ? setButtonText('View All Games') : setButtonText('Add A Game');
     setshowGameFeed(!showGameFeed);
-    setshowGameForm(!showGameForm);
-    if (showGameFeed) {
-      setButtonText('Add A Game');
-    } else {
-      setButtonText('View All Games');
-    }
   };
+
+  let domContent = null;
 
   if (showGameFeed) {
     domContent = (
@@ -41,17 +44,21 @@ const Games = () => {
         <MaterialAppBar click={toggleGameFeed} btnText={buttonText} />
         <div className="filterSection">
           <h2>Filter The Game List</h2>
-          <Filter onFilter={getFilterHandler} />
+          <MaterialFilter onFilter={getFilterHandler} />
         </div>
         <hr />
-        <GameFeed games={gamesList} onRemoveGame={deleteGameHandler} />
+        <GameFeed
+          games={gamesList}
+          onRemoveGame={deleteGameHandler}
+          loading={isLoading}
+        />
       </Fragment>
     );
   } else {
     domContent = (
       <Fragment>
         <MaterialAppBar click={toggleGameFeed} btnText={buttonText} />
-        <GameForm />
+        <GameForm toggle={toggleGameFeed} loading={isLoading}/>
       </Fragment>
     );
   }
