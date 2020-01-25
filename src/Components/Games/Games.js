@@ -9,20 +9,15 @@ import MaterialFilter from '../UI/Material-Filter/MaterialFilter';
 const Games = () => {
   const [gamesList, setGamesList] = useState([]);
   const [showGameFeed, setshowGameFeed] = useState(true);
-  const [ isLoading, setIsLoading ] = useState(false);
   const [buttonText, setButtonText] = useState('Add A Game');
 
   const getFilterHandler = useCallback(filterObject => {
-    setIsLoading(true);
     setGamesList(filterObject);
-    setIsLoading(false);
   }, []);
 
   const deleteGameHandler = async gameID => {
-    setIsLoading(true);
     await axios.delete(`https://game-grade.firebaseio.com/games/${gameID}.json`)
       .then(() => {
-        setIsLoading(false);
         setGamesList(prevGamesList => prevGamesList.filter(game => game.id !== gameID));
       })
       .catch(error => {
@@ -50,7 +45,6 @@ const Games = () => {
         <GameFeed
           games={gamesList}
           onRemoveGame={deleteGameHandler}
-          loading={isLoading}
         />
       </Fragment>
     );
@@ -58,7 +52,7 @@ const Games = () => {
     domContent = (
       <Fragment>
         <MaterialAppBar click={toggleGameFeed} btnText={buttonText} />
-        <GameForm toggle={toggleGameFeed} loading={isLoading}/>
+        <GameForm toggle={toggleGameFeed}/>
       </Fragment>
     );
   }

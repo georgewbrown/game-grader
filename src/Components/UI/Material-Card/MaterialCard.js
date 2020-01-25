@@ -1,6 +1,14 @@
 import React from 'react';
 import './MaterialCard.css';
-import { makeStyles, Card, CardContent, CardMedia, Typography, Button, CardActions } from '@material-ui/core';
+import {
+  makeStyles,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Button,
+  CardActions
+} from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
   card: {

@@ -15,6 +15,7 @@ const GameForm = props => {
       .catch(error => console.error(error));
       props.toggle(true);
   };
+
   const validate = values => {
     const errors = {};
     if (!values.title) {

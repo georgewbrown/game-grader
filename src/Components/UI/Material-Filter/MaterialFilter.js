@@ -1,9 +1,5 @@
 import React, { useEffect, useState, memo } from 'react';
-import {
-     makeStyles,
-     NativeSelect,
-     FormControl,
-} from '@material-ui/core';
+import { makeStyles, NativeSelect, FormControl } from '@material-ui/core';
 import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
