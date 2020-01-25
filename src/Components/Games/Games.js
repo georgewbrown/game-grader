@@ -10,20 +10,15 @@ const Games = () => {
   const [gamesList, setGamesList] = useState([]);
   const [showGameFeed, setshowGameFeed] = useState(true);
   const [buttonText, setButtonText] = useState('Add A Game');
+  let domContent = null;
 
-  const getFilterHandler = useCallback(filterObject => {
-    setGamesList(filterObject);
-  }, []);
+  const filteredGamesHandler = useCallback(filteredGames => setGamesList(filteredGames), []);
 
-  const deleteGameHandler = async gameID => {
-    await axios.delete(`https://game-grade.firebaseio.com/games/${gameID}.json`)
-      .then(() => {
-        setGamesList(prevGamesList => prevGamesList.filter(game => game.id !== gameID));
-      })
-      .catch(error => {
-        console.error(error);
-      })
-    ;
+  const removeGameHandler = async gameID => {
+    await axios
+      .delete(`https://game-grade.firebaseio.com/games/${gameID}.json`)
+      .then(() => setGamesList(prevGamesList => prevGamesList.filter(game => game.id !== gameID)))
+      .catch(error => console.error(error));
   };
 
   const toggleGameFeed = () => {
@@ -31,21 +26,16 @@ const Games = () => {
     setshowGameFeed(!showGameFeed);
   };
 
-  let domContent = null;
-
   if (showGameFeed) {
     domContent = (
       <Fragment>
         <MaterialAppBar click={toggleGameFeed} btnText={buttonText} />
         <div className="filterSection">
           <h2>Filter The Game List</h2>
-          <MaterialFilter onFilter={getFilterHandler} />
+          <MaterialFilter onFilter={filteredGamesHandler} />
         </div>
         <hr />
-        <GameFeed
-          games={gamesList}
-          onRemoveGame={deleteGameHandler}
-        />
+        <GameFeed games={gamesList} onRemoveGame={removeGameHandler}/>
       </Fragment>
     );
   } else {

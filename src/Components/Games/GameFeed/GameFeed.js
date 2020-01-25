@@ -29,8 +29,7 @@ const GameFeed = props => {
         esrbRating = 'https://www.esrb.org/wp-content/uploads/2019/05/E.svg';
         break;
       case esrbRating === 'E10+':
-        esrbRating =
-          'https://www.esrb.org/wp-content/uploads/2019/05/E10plus.svg';
+        esrbRating = 'https://www.esrb.org/wp-content/uploads/2019/05/E10plus.svg';
         break;
       case esrbRating === 'T':
         esrbRating = 'https://www.esrb.org/wp-content/uploads/2019/05/T.svg';

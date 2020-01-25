@@ -12,7 +12,6 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-
 const Filter = props => {
     const { onFilter } = props;
     const classes = useStyles();
@@ -55,9 +54,7 @@ const Filter = props => {
             );
             onFilter(filteredGames);
             }
-            }).catch(err => {
-              console.error(err);
-              });
+            }).catch(err => console.error(err));
         }
         fetchData();
       }, [onFilter, filterState, firebaseURL]);
